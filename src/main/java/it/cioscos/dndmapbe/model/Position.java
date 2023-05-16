@@ -6,4 +6,5 @@ import lombok.Data;
 public class Position {
     private int q;
     private int r;
+    private int s;
 }

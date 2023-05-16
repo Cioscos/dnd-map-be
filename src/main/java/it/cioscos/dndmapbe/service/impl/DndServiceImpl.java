@@ -4,6 +4,7 @@ import it.cioscos.dndmapbe.document.Session;
 import it.cioscos.dndmapbe.dto.SessionDto;
 import it.cioscos.dndmapbe.exception.SessionNotFoundException;
 import it.cioscos.dndmapbe.mapper.SessionMapper;
+import it.cioscos.dndmapbe.model.Player;
 import it.cioscos.dndmapbe.repository.SessionRepository;
 import it.cioscos.dndmapbe.service.DndService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,25 @@ public class DndServiceImpl implements DndService {
                 new SessionNotFoundException(name));
 
         return sessionMapper.toDto(session);
+    }
+
+    @Override
+    public SessionDto addPlayerToSession(String sessionName, Player player) {
+        var session = repository.findSessionByName(sessionName).orElseThrow(() ->
+                new SessionNotFoundException(sessionName));
+
+        session.addPlayer(player);
+
+        return sessionMapper.toDto(repository.save(session));
+    }
+
+    @Override
+    public SessionDto removePlayerToSession(String sessionName, Player player) {
+        var session = repository.findSessionByName(sessionName).orElseThrow(() ->
+                new SessionNotFoundException(sessionName));
+
+        session.removePlayer(player);
+
+        return sessionMapper.toDto(repository.save(session));
     }
 }

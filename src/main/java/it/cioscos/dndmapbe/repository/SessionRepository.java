@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface SessionRepository extends MongoRepository<Session, String> {
 
     Optional<Session> findSessionByName(String name);
+
 }

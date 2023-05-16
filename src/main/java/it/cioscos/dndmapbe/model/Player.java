@@ -7,4 +7,5 @@ public class Player {
     private String name;
     private String color;
     private Position position;
+    private String sessionToken;
 }
