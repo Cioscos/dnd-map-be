@@ -11,4 +11,6 @@ public interface DndService {
     SessionDto addPlayerToSession(String sessionName, Player player);
 
     SessionDto removePlayerToSession(String sessionName, Player player);
+
+    SessionDto movePlayer(String sessionName, Player player);
 }

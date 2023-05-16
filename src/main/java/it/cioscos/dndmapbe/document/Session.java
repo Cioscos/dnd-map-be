@@ -74,4 +74,13 @@ public class Session {
                 .collect(Collectors.toList());
     }
 
+    public void movePlayer(Player player) {
+        for (Player p : players) {
+            if (player.getName().equals(player.getName()) &&
+                    player.getSessionToken().equals(player.getSessionToken())) {
+                p.setPosition(player.getPosition());
+            }
+        }
+    }
+
 }

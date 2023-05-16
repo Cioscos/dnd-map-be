@@ -40,4 +40,10 @@ public class DndController {
         log.info(Common.createLog("sessionName: " + sessionName + " player: " + player));
         return service.removePlayerToSession(sessionName, player);
     }
+
+    @PostMapping("/session/{sessionName}/player/move")
+    SessionDto movePlayer(@PathVariable String sessionName, @RequestBody Player player) {
+        log.info(Common.createLog("sessionName: " + sessionName + " player: " + player));
+        return service.movePlayer(sessionName, player);
+    }
 }

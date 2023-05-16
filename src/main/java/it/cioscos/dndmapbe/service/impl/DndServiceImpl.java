@@ -53,4 +53,14 @@ public class DndServiceImpl implements DndService {
 
         return sessionMapper.toDto(repository.save(session));
     }
+
+    @Override
+    public SessionDto movePlayer(String sessionName, Player player) {
+        var session = repository.findSessionByName(sessionName).orElseThrow(() ->
+                new SessionNotFoundException(sessionName));
+
+        session.movePlayer(player);
+
+        return sessionMapper.toDto(repository.save(session));
+    }
 }
