@@ -4,7 +4,7 @@ import it.cioscos.dndmapbe.dto.SessionDto;
 import it.cioscos.dndmapbe.model.Player;
 
 public interface DndService {
-    SessionDto createSession(String name);
+    SessionDto createSession(String name, String size);
 
     SessionDto getSessionById(String name);
 

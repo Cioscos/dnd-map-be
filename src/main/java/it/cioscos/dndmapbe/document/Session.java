@@ -2,6 +2,7 @@ package it.cioscos.dndmapbe.document;
 
 import it.cioscos.dndmapbe.model.Enemy;
 import it.cioscos.dndmapbe.model.Entity;
+import it.cioscos.dndmapbe.model.MapSize;
 import it.cioscos.dndmapbe.model.Player;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -21,6 +22,10 @@ public class Session {
 
     @Indexed(unique = true)
     private String name;
+
+    private MapSize mapSize;
+
+    private boolean turnFinished;
 
     private List<Player> players;
 

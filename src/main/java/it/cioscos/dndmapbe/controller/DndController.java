@@ -18,9 +18,9 @@ public class DndController {
     private final DndService service;
 
     @GetMapping("/session/new/{name}")
-    SessionDto createSession(@PathVariable String name) {
+    SessionDto createSession(@PathVariable String name, @RequestParam String size) {
         log.info(Common.createLog("Name: " + name));
-        return service.createSession(name);
+        return service.createSession(name, size);
     }
 
     @GetMapping("/session/{name}")
