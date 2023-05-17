@@ -1,5 +1,6 @@
 package it.cioscos.dndmapbe.service;
 
+import it.cioscos.dndmapbe.dto.PlayerMovementRequest;
 import it.cioscos.dndmapbe.dto.SessionDto;
 import it.cioscos.dndmapbe.model.Player;
 
@@ -12,5 +13,5 @@ public interface DndService {
 
     SessionDto removePlayerToSession(String sessionName, Player player);
 
-    SessionDto movePlayer(String sessionName, Player player);
+    SessionDto movePlayer(PlayerMovementRequest player);
 }
