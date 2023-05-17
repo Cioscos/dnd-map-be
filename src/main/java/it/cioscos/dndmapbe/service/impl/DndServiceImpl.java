@@ -1,7 +1,8 @@
 package it.cioscos.dndmapbe.service.impl;
 
 import it.cioscos.dndmapbe.document.Session;
-import it.cioscos.dndmapbe.dto.PlayerMovementRequest;
+import it.cioscos.dndmapbe.dto.AttackActionRequest;
+import it.cioscos.dndmapbe.dto.PlayerActionRequest;
 import it.cioscos.dndmapbe.dto.SessionDto;
 import it.cioscos.dndmapbe.exception.SessionNotFoundException;
 import it.cioscos.dndmapbe.mapper.SessionMapper;
@@ -73,11 +74,21 @@ public class DndServiceImpl implements DndService {
     }
 
     @Override
-    public SessionDto movePlayer(PlayerMovementRequest player) {
-        var session = repository.findSessionByName(player.getSessionName()).orElseThrow(() ->
-                new SessionNotFoundException(player.getSessionName()));
+    public SessionDto playerAttack(AttackActionRequest action) {
+        var session = repository.findSessionByName(action.getSessionName()).orElseThrow(() ->
+                new SessionNotFoundException(action.getSessionName()));
 
-        session.movePlayer(player.getPlayer());
+        session.attackPlayer(action.getPlayer(), action.getCastedAttack());
+
+        return sessionMapper.toDto(repository.save(session));
+    }
+
+    @Override
+    public SessionDto movePlayer(PlayerActionRequest action) {
+        var session = repository.findSessionByName(action.getSessionName()).orElseThrow(() ->
+                new SessionNotFoundException(action.getSessionName()));
+
+        session.movePlayer(action.getPlayer());
 
         return sessionMapper.toDto(repository.save(session));
     }

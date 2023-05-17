@@ -1,9 +1,6 @@
 package it.cioscos.dndmapbe.document;
 
-import it.cioscos.dndmapbe.model.Enemy;
-import it.cioscos.dndmapbe.model.Entity;
-import it.cioscos.dndmapbe.model.MapSize;
-import it.cioscos.dndmapbe.model.Player;
+import it.cioscos.dndmapbe.model.*;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -84,6 +81,20 @@ public class Session {
             if (player.getName().equals(p.getName()) &&
                     player.getSessionToken().equals(p.getSessionToken())) {
                 p.setPosition(player.getPosition());
+            }
+        }
+    }
+
+    public void attackPlayer(Player player, CastedAttack castedAttack) {
+        for (Player p : players) {
+            if (player.getName().equals(p.getName()) &&
+                    player.getSessionToken().equals(p.getSessionToken())) {
+                // initialize the list of the attacks if they don't exist
+                if (p.getCastedAttacks() == null) {
+                    p.setCastedAttacks(new ArrayList<>());
+                }
+
+                p.getCastedAttacks().add(castedAttack);
             }
         }
     }
