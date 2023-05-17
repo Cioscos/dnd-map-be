@@ -81,8 +81,8 @@ public class Session {
 
     public void movePlayer(Player player) {
         for (Player p : players) {
-            if (player.getName().equals(player.getName()) &&
-                    player.getSessionToken().equals(player.getSessionToken())) {
+            if (player.getName().equals(p.getName()) &&
+                    player.getSessionToken().equals(p.getSessionToken())) {
                 p.setPosition(player.getPosition());
             }
         }
