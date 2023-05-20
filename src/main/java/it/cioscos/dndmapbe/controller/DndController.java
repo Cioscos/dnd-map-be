@@ -19,9 +19,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin
 @RequiredArgsConstructor
-@RequestMapping("dnd-map/api")
+@CrossOrigin
+@RequestMapping("dnd-map/api/session")
 @Slf4j
 public class DndController {
 
@@ -36,7 +36,7 @@ public class DndController {
                             schema = @Schema(implementation = SessionDto.class))}),
             @ApiResponse(responseCode = "400", description = "The session doesn't exist",
                     content = @Content(mediaType = "application/json"))})
-    @GetMapping("/session/new/{name}")
+    @GetMapping("/new/{name}")
     SessionDto createSession(
             @Parameter(description = "Name of the new session") @PathVariable String name,
             @Parameter(description = "Size of the map. Example: 10x20") @RequestParam String size) {
@@ -51,7 +51,7 @@ public class DndController {
                             schema = @Schema(implementation = SessionDto.class))}),
             @ApiResponse(responseCode = "400", description = "The session doesn't exist",
                     content = @Content(mediaType = "application/json"))})
-    @GetMapping("/session/{name}")
+    @GetMapping("/{name}")
     SessionDto getSessionByName(@Parameter(description = "Name of the new session") @PathVariable String name) {
         log.info(Common.createLog("Name: " + name));
         return service.getSessionById(name);
@@ -64,7 +64,7 @@ public class DndController {
                             schema = @Schema(implementation = SessionDto.class))}),
             @ApiResponse(responseCode = "400", description = "The session doesn't exist",
                     content = @Content(mediaType = "application/json"))})
-    @PostMapping("/session/{sessionName}/players")
+    @PostMapping("/{sessionName}/players")
     SessionDto addPlayerToSession(
             @Parameter(description = "Name of the new session") @PathVariable String sessionName,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "The player to add to the session") @RequestBody Player player) {
@@ -79,7 +79,7 @@ public class DndController {
                             schema = @Schema(implementation = SessionDto.class))}),
             @ApiResponse(responseCode = "400", description = "The session doesn't exist",
                     content = @Content(mediaType = "application/json"))})
-    @DeleteMapping("/session/{sessionName}/players")
+    @DeleteMapping("/{sessionName}/players")
     SessionDto removePlayerToSession(
             @Parameter(description = "Name of the new session") @PathVariable String sessionName,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "The player to add to the session") @RequestBody Player player) {
@@ -87,7 +87,7 @@ public class DndController {
         return service.removePlayerToSession(sessionName, player);
     }
 
-    @MessageMapping("session/player/attack")
+    @MessageMapping("/player/attack")
     void playerAttack(@RequestBody AttackActionRequest action) {
         log.info(Common.createLog("Player: " + action));
 
@@ -97,7 +97,7 @@ public class DndController {
         template.convertAndSend("/topic/sessionUpdate", session);
     }
 
-    @MessageMapping("/session/player/move")
+    @MessageMapping("/player/move")
     void movePlayer(@RequestBody PlayerActionRequest player) {
         log.info(Common.createLog("Player: " + player));
         var session = service.movePlayer(player);
