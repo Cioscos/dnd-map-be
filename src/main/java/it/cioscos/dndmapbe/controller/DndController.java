@@ -38,7 +38,7 @@ public class DndController {
                     content = @Content(mediaType = "application/json"))})
     @GetMapping("/new/{name}")
     SessionDto createSession(
-            @Parameter(description = "Name of the new session") @PathVariable String name,
+            @Parameter(description = "Name of the session") @PathVariable String name,
             @Parameter(description = "Size of the map. Example: 10x20") @RequestParam String size) {
         log.info(Common.createLog("Name: " + name));
         return service.createSession(name, size);

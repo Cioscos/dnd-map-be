@@ -12,6 +12,7 @@ public class Player {
     private String sessionToken;
 
     private boolean movementCompleted;
+    private boolean isMaster;
 
     private List<CastedAttack> castedAttacks;
 }
